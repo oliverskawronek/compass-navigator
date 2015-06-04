@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">CompassNavigator</string>
+    <string name="title_activity_main">CompassNavigator</string>
+    <string name="title_activity_target_list">TargetListActivity</string>
+    <string name="target_caption">Target: </string>
+    <string name="unknown_target_caption">please select a target</string>
+    <string name="unknown_distance">distance n.a.</string>
+    <string name="add_target_caption">Add Target</string>
+    <string name="menu_select_target">Select Target</string>
+    <string name="menu_edit_target_list">Edit Target List</string>
+    <string name="menu_add_target">Add Target</string>
+    <string name="menu_delete_target">Delete Target</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_status">Status</string>
+    <string name="title_activity_add_target">Add Target</string>
+    <string name="title_activity_edit_target_list">Edit Target List</string>
+
+</resources>

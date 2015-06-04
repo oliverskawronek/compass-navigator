@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Black" />
+    <color name="Black">#000</color>
+    <color name="LightGray">#CCC</color>
+    <color name="White">#FFF</color>
+    <color name="Orange">#FC3</color>
+
+</resources>
