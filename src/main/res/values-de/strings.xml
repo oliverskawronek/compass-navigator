@@ -7,7 +7,6 @@
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
     <!-- Activities -->
-    <string name="title_activity_navigator">Navigator</string>
     <string name="title_activity_add_destination">Ziel hinzufügen</string>
     <string name="title_activity_select_destination">Ziel wählen</string>
     <string name="title_activity_delete_destinations">Ziele löschen</string>

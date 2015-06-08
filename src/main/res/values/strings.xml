@@ -11,7 +11,7 @@
     <string name="delete">Delete</string>
     
     <!-- Activities -->
-    <string name="title_activity_navigator">Navigator</string>
+    <string name="title_activity_navigator">@string/app_name</string>
     <string name="title_activity_add_destination">Add destination</string>
     <string name="title_activity_select_destination">Select destination</string>
     <string name="title_activity_delete_destinations">Delete destinations</string>
