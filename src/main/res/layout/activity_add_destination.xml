@@ -1,0 +1,94 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="${relativePackage}.${activityClass}" >
+
+        <TextView
+            android:id="@+id/add_lblName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/add_name" />
+
+        <EditText
+            android:id="@+id/add_txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_lblName"
+            android:layout_below="@id/add_lblName"
+            android:ems="10"
+            android:hint="Berlin, Fernsehturm"
+            android:inputType="textCapWords"
+            android:minWidth="300dp"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/add_lblLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/add_txtName"
+            android:layout_below="@+id/add_txtName"
+            android:text="@string/add_latitude" />
+
+        <EditText
+            android:id="@+id/add_txtLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/add_lblLatitude"
+            android:layout_below="@+id/add_lblLatitude"
+            android:ems="10"
+            android:hint="52.520803"
+            android:inputType="numberSigned|numberDecimal"
+            android:minWidth="300dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/add_lblLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/add_txtName"
+            android:layout_below="@+id/add_txtLatitude"
+            android:text="@string/add_longitude" />
+
+        <EditText
+            android:id="@+id/add_txtLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/add_lblLatitude"
+            android:layout_below="@+id/add_lblLongitude"
+            android:ems="10"
+            android:hint="13.40945"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned|numberDecimal"
+            android:minWidth="300dp"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/add_btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/add_txtName"
+            android:layout_below="@id/add_txtLongitude"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/add_btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/add_btnCancel"
+            android:layout_toLeftOf="@id/add_btnCancel"
+            android:text="@string/add_add" />
+
+    </RelativeLayout>
+
+</ScrollView>

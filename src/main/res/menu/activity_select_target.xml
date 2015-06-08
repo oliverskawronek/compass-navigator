@@ -1,4 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_add_target" android:title="@string/add_target_caption"></item>
-    <item android:id="@+id/menu_edit_target_list" android:title="@string/menu_edit_target_list"></item>
-</menu>

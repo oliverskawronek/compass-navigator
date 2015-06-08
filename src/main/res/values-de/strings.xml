@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+    <string name="yes">Ja</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="save">Speichern</string>
+    <string name="delete">Löschen</string>
+    <!-- Activities -->
+    <string name="title_activity_navigator">Navigator</string>
+    <string name="title_activity_add_destination">Ziel hinzufügen</string>
+    <string name="title_activity_select_destination">Ziel wählen</string>
+    <string name="title_activity_delete_destinations">Ziele löschen</string>
+    <!-- Actions -->
+    <string name="action_select_all">Alle auswählen</string>
+    <string name="action_unselect_all">Alle abwählen</string>
+    <!-- AddDestinationActivity -->
+    <string name="add_name">Name</string>
+    <string name="add_latitude">Breitengrad</string>
+    <string name="add_longitude">Längengrad</string>
+    <string name="add_add">Hinzufügen</string>
+    <string name="add_destination_added">Ziel hinzugefügt</string>
+    <string name="add_error_empty" formatted="false">Kann nicht leer sein</string>
+    <string name="add_error_latitude" formatted="false">Außerhalb von -90..90</string>
+    <string name="add_error_longitude" formatted="false">Außerhalb von -180..180</string>
+    <!-- SelectDestinationActivity -->
+    <string name="item_geo" formatted="false">Lat: %s, Lon: %s</string>
+    <!-- DeleteDestinationsActivity -->
+    <string name="delete_confirm_message">Sollen die Ziele wirklich gelöscht werden?</string>
+    <string name="delete_delete_info" formatted="false">%d Ziel(e) gelöscht</string>
+
+</resources>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App -->
-    <string name="app_name">CompassNavigator</string>
-
     <!-- Common -->
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
@@ -16,9 +13,6 @@
     <string name="title_activity_select_destination">Select destination</string>
     <string name="title_activity_delete_destinations">Delete destinations</string>
     <!-- Actions -->
-    <string name="action_add_destination">@string/title_activity_add_destination</string>
-    <string name="action_select_destination">@string/title_activity_select_destination</string>
-    <string name="action_delete_destinations">@string/title_activity_delete_destinations</string>
     <string name="action_select_all">Select all</string>
     <string name="action_unselect_all">Unselect all</string>
     <!-- AddDestinationActivity -->
@@ -33,7 +27,6 @@
     <!-- SelectDestinationActivity -->
     <string name="item_geo" formatted="false">Lat: %s, Lon: %s</string>
     <!-- DeleteDestinationsActivity -->
-    <string name="delete_confirm_title">@string/title_activity_delete_destinations</string>
     <string name="delete_confirm_message">Are sure to delete the selected destinations?</string>
     <string name="delete_delete_info" formatted="false">Deleted %d destination(s)</string>
 
