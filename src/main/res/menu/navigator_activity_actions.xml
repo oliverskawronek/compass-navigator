@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:compassnavigator="http://schemas.android.com/res-auto">
+      xmlns:compassnavigator="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_select_destination"
-          android:icon="@drawable/ic_launcher"
-          android:title="@string/action_select_destination" />
+          android:icon="@drawable/ic_select"
+          android:title="@string/action_select_destination"
+          compassnavigator:showAsAction="ifRoom" />
     <item android:id="@+id/action_add_destination"
-          android:icon="@drawable/ic_launcher"
-          android:title="@string/action_add_destination" />
+          android:icon="@drawable/ic_add"
+          android:title="@string/action_add_destination"
+          compassnavigator:showAsAction="ifRoom" />
     <item android:id="@+id/action_delete_destinations"
-          android:icon="@drawable/ic_launcher"
-          android:title="@string/action_delete_destinations" />
+          android:icon="@drawable/ic_delete"
+          android:title="@string/action_delete_destinations"
+          compassnavigator:showAsAction="ifRoom" />
 </menu>
