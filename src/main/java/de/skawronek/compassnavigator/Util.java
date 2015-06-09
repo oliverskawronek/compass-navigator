@@ -12,8 +12,7 @@ public final class Util {
 
 	private static final NumberFormat NUMBER_FORMAT;
 	static {
-		final DecimalFormat format = (DecimalFormat) DecimalFormat
-				.getInstance();
+		final DecimalFormat format = new DecimalFormat("0.000000");
 		DecimalFormatSymbols dot = new DecimalFormatSymbols();
 		dot.setDecimalSeparator('.');
 		format.setDecimalFormatSymbols(dot);
