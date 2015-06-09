@@ -2,11 +2,15 @@ package de.skawronek.compassnavigator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +27,8 @@ public class NavigatorActivity extends ActionBarActivity implements
 	private Destination currentDestination = null;
 	private Location currentLocation = null;
 
+	private NavigatorView navigatorView;
 	private TextView lblDestination;
-	private TextView lblDistance;
-	private TextView lblBearing;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -34,9 +37,8 @@ public class NavigatorActivity extends ActionBarActivity implements
 
 		addMockContent();
 
+		navigatorView = (NavigatorView) findViewById(R.id.navigator_navigatorView);
 		lblDestination = (TextView) findViewById(R.id.navigator_lblDestination);
-		lblDistance = (TextView) findViewById(R.id.navigator_lblDistance);
-		lblBearing = (TextView) findViewById(R.id.navigator_lblBearing);
 
 		final LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -57,8 +59,8 @@ public class NavigatorActivity extends ActionBarActivity implements
 						-10.456));
 		for (int i = 0; i < 50; i++) {
 			DestinationList.getInstance().add(
-					new Destination("" + System.currentTimeMillis(),
-							-40.123, Math.random() * 20));
+					new Destination("" + System.currentTimeMillis(), -40.123,
+							Math.random() * 20));
 		}
 	}
 
@@ -87,8 +89,7 @@ public class NavigatorActivity extends ActionBarActivity implements
 	}
 
 	private void onSelectDestinationAction() {
-		final Intent intent = new Intent(this,
-				SelectDestinationActivity.class);
+		final Intent intent = new Intent(this, SelectDestinationActivity.class);
 		startActivityForResult(intent, REQUEST_SELECT_DESTINATION);
 	}
 
@@ -98,8 +99,7 @@ public class NavigatorActivity extends ActionBarActivity implements
 	}
 
 	private void onDeleteDestinationsAction() {
-		final Intent intent = new Intent(this,
-				DeleteDestinationsActivity.class);
+		final Intent intent = new Intent(this, DeleteDestinationsActivity.class);
 		startActivity(intent);
 	}
 
@@ -138,16 +138,39 @@ public class NavigatorActivity extends ActionBarActivity implements
 
 	private void invalidateNavigation() {
 		if (currentLocation != null && currentDestination != null) {
-			final float distance = currentLocation.distanceTo(currentDestination
-					.getLocation());
+			final int distance = Math.round(currentLocation
+					.distanceTo(currentDestination.getLocation())); // in meter
 			final float bearing = currentLocation.bearingTo(currentDestination
 					.getLocation());
-			lblDistance.setText("dist: " + distance + "m");
-			lblBearing.setText("bear: " + bearing + "°");
+			navigatorView.setDistance(distance);
+			// TODO use compass
+			navigatorView.setBearing(bearing + 180);
 		} else {
-			lblDistance.setText("n.a.");
-			lblBearing.setText("n.a.");
+			navigatorView.setDistance(NavigatorView.UNKNOWN_DISTANCE);
+			navigatorView.setBearing(NavigatorView.UNKNOWN_BEARING);
 		}
+
+		lblDestination.setText(formatDestination(currentDestination));
+	}
+
+	private SpannableString formatDestination(final Destination dest) {
+		final String destinationTemplate = getString(R.string.navigator_destination);
+
+		final String strDest;
+		if (dest != null) {
+			strDest = dest.getName();
+		} else {
+			final String unknown = getString(R.string.unknown_destination);
+			strDest = unknown;
+		}
+		final String text = String.format(destinationTemplate, strDest);
+
+		final int spanStart = text.length() - strDest.length(); // incl.
+		final int spanEnd = text.length(); // excl.
+		final SpannableString spannable = new SpannableString(text);
+		spannable.setSpan(new StyleSpan(Typeface.BOLD), spanStart, spanEnd, 0);
+		spannable.setSpan(new RelativeSizeSpan(1.4f), spanStart, spanEnd, 0);
+		return spannable;
 	}
 
 	@Override

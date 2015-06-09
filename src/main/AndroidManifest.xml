@@ -17,7 +17,8 @@
         android:theme="@style/Theme.AppCompat.Light" >
         <activity
             android:name=".NavigatorActivity"
-            android:label="@string/title_activity_navigator" >
+            android:label="@string/title_activity_navigator"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

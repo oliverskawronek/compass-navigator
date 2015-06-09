@@ -15,12 +15,17 @@
     <string name="title_activity_add_destination">Add destination</string>
     <string name="title_activity_select_destination">Select destination</string>
     <string name="title_activity_delete_destinations">Delete destinations</string>
+    <!-- NavigationView -->
+    <string name="unknown_distance">distance n. a.</string>
+    <string name="unknown_destination">Not selected</string>
     <!-- Actions -->
     <string name="action_add_destination">@string/title_activity_add_destination</string>
     <string name="action_select_destination">@string/title_activity_select_destination</string>
     <string name="action_delete_destinations">@string/title_activity_delete_destinations</string>
     <string name="action_select_all">Select all</string>
     <string name="action_unselect_all">Unselect all</string>
+    <!-- NavigatorActivity -->
+    <string name="navigator_destination" formatted="false">Destination: %s</string>
     <!-- AddDestinationActivity -->
     <string name="add_name">Name</string>
     <string name="add_latitude">Latitude [Degree]</string>

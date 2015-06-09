@@ -10,9 +10,14 @@
     <string name="title_activity_add_destination">Ziel hinzufügen</string>
     <string name="title_activity_select_destination">Ziel wählen</string>
     <string name="title_activity_delete_destinations">Ziele löschen</string>
+    <!-- NavigationView -->
+    <string name="unknown_distance">Ziel n. a.</string>
+    <string name="unknown_destination">Nicht gewählt</string>
     <!-- Actions -->
     <string name="action_select_all">Alle auswählen</string>
     <string name="action_unselect_all">Alle abwählen</string>
+    <!-- NavigatorActivity -->
+    <string name="navigator_destination" formatted="false">Ziel: %s</string>
     <!-- AddDestinationActivity -->
     <string name="add_name">Name</string>
     <string name="add_latitude">Breitengrad</string>
