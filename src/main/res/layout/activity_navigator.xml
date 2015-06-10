@@ -5,7 +5,7 @@
     android:padding="20dp"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <de.skawronek.compassnavigator.NavigatorView
+    <vertex.compassnavigator.NavigatorView
         android:id="@+id/navigator_navigatorView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
