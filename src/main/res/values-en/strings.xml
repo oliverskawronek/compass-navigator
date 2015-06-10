@@ -6,6 +6,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="not_available">n. a.</string>
     <!-- Activities -->
     <string name="title_activity_add_destination">Add destination</string>
     <string name="title_activity_select_destination">Select destination</string>
@@ -14,6 +15,7 @@
     <string name="unknown_distance">distance n. a.</string>
     <string name="unknown_destination">Not selected</string>
     <!-- Actions -->
+    <string name="action_status">Status</string>
     <string name="action_select_all">Select all</string>
     <string name="action_unselect_all">Unselect all</string>
     <!-- NavigatorActivity -->
@@ -32,5 +34,9 @@
     <!-- DeleteDestinationsActivity -->
     <string name="delete_confirm_message">Are sure to delete the selected destinations?</string>
     <string name="delete_delete_info" formatted="false">Deleted %d destination(s)</string>
-
+	<!-- StatusDialog -->
+	<string name="status_last_provider">Last provider:</string>
+	<string name="status_last_location">Last location:</string>
+	<string name="status_age" formatted="false">(%s)</string>
+	<string name="status_age_not_available">(Time unknown)</string>
 </resources>

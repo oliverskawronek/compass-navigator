@@ -1,6 +1,7 @@
 package vertex.compassnavigator;
 
 import vertex.compassnavigator.DataSmoother.Smoothing;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,7 +10,9 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 
 public final class LocationCompassHandler implements LocationListener,
@@ -96,7 +99,50 @@ public final class LocationCompassHandler implements LocationListener,
 	}
 
 	public Location getLocation() {
-		return currentLocation;
+		return new Location(currentLocation);
+	}
+
+	public String getCurrentLocationProvider() {
+		if (currentLocation != null) {
+			return currentLocation.getProvider();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns the age of the current location in milliseconds. If there is no
+	 * current location available, it returns -1.
+	 * 
+	 * @return Age in milliseconds or -1 if no location available
+	 */
+	public long getCurrentLocationAgeInMillis() {
+		if (currentLocation != null) {
+			return getLocationAgeInMillis(currentLocation);
+		} else {
+			return -1;
+		}
+	}
+
+	// Source:
+	// http://stackoverflow.com/questions/15308326/how-long-ago-was-the-last-known-location-recorded#answer-22718415
+	private static long getLocationAgeInMillis(final Location loc) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			return getLocationAgeInMillisSinceApi17(loc);
+		} else {
+			return getLocationAgeInMillisPreApi17(loc);
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+	private static long getLocationAgeInMillisSinceApi17(final Location last) {
+		final int NANOS_TO_MILLIS = 1000000;
+		return (SystemClock.elapsedRealtimeNanos() - last
+				.getElapsedRealtimeNanos()) / NANOS_TO_MILLIS;
+	}
+
+	private static long getLocationAgeInMillisPreApi17(final Location last) {
+		return System.currentTimeMillis() - last.getTime();
 	}
 
 	/**

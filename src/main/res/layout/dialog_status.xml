@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/status_lblLastProvider1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/status_last_provider" />
+
+    <TextView
+        android:id="@+id/status_lblProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status_lblLastProvider1"
+        android:layout_below="@+id/status_lblLastProvider1"
+        android:text="GPS"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/status_lblLastLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status_lblProvider"
+        android:layout_below="@+id/status_lblProvider"
+        android:text="@string/status_last_location" />
+
+    <TextView
+        android:id="@+id/status_lblGeoPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status_lblLastLocation"
+        android:layout_below="@+id/status_lblLastLocation"
+        android:text="Lat: 51.314566, Lon: 13.544567"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/status_lblAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status_lblGeoPosition"
+        android:layout_below="@+id/status_lblGeoPosition"
+        android:text="(1 min ago)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/status_btnOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:text="@android:string/ok" />
+
+</RelativeLayout>

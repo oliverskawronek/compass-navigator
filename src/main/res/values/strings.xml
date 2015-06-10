@@ -9,6 +9,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="not_available">n. a.</string>
     
     <!-- Activities -->
     <string name="title_activity_navigator">@string/app_name</string>
@@ -22,6 +23,7 @@
     <string name="action_add_destination">@string/title_activity_add_destination</string>
     <string name="action_select_destination">@string/title_activity_select_destination</string>
     <string name="action_delete_destinations">@string/title_activity_delete_destinations</string>
+    <string name="action_status">Status</string>
     <string name="action_select_all">Select all</string>
     <string name="action_unselect_all">Unselect all</string>
     <!-- NavigatorActivity -->
@@ -41,5 +43,10 @@
     <string name="delete_confirm_title">@string/title_activity_delete_destinations</string>
     <string name="delete_confirm_message">Are sure to delete the selected destinations?</string>
     <string name="delete_delete_info" formatted="false">Deleted %d destination(s)</string>
-
+	<!-- StatusDialog -->
+	<string name="status_last_provider">Last provider:</string>
+	<string name="status_last_location">Last location:</string>
+	<string name="status_geo">@string/item_geo</string>
+	<string name="status_age" formatted="false">(%s)</string>
+	<string name="status_age_not_available">(Time unknown)</string>
 </resources>

@@ -1,12 +1,15 @@
 package vertex.compassnavigator;
 
 import vertex.compassnavigator.R;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
+import android.text.format.DateUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -85,6 +88,9 @@ public class NavigatorActivity extends ActionBarActivity implements
 		case R.id.action_delete_destinations:
 			onDeleteDestinationsAction();
 			return true;
+		case R.id.action_status:
+			onStatusAction();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -103,6 +109,15 @@ public class NavigatorActivity extends ActionBarActivity implements
 	private void onDeleteDestinationsAction() {
 		final Intent intent = new Intent(this, DeleteDestinationsActivity.class);
 		startActivity(intent);
+	}
+
+	private void onStatusAction() {
+		final String provider = locationCompassHandler
+				.getCurrentLocationProvider();
+		final Location location = locationCompassHandler.getLocation();
+		long ageInMillis = locationCompassHandler.getCurrentLocationAgeInMillis();
+		final StatusDialog statusDialog = new StatusDialog(this, provider, location, ageInMillis);
+		statusDialog.show();
 	}
 
 	@Override
