@@ -188,9 +188,8 @@ public class NavigatorView extends View {
 	private int getActiveArrow() {
 		final int numArrows = 16; // Divide 360° in 16 segments
 		final int rounded = Math.round((bearing - 90) / (360f / numArrows));
-		// Avoid nagetive numbers. So to return positive numbers for (a % b)
-		// we calculate (a % b + b) % b.
-		final int activeArrow = (rounded % numArrows + numArrows) % numArrows;
+		// Avoid nagetive numbers
+		final int activeArrow = Util.positiveModulo(rounded, numArrows);
 		assert 0 <= activeArrow && activeArrow <= numArrows;
 		return activeArrow;
 	}
