@@ -1,11 +1,8 @@
 package de.skawronek.compassnavigator;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
@@ -18,14 +15,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class NavigatorActivity extends ActionBarActivity implements
-		LocationListener {
+		LocationCompassHandler.ChangeListener {
 	public static final String EXTRA_SELECTED_DESTINATION = "select";
 	private static final int REQUEST_SELECT_DESTINATION = 1;
 
 	private static final String TAG = NavigatorActivity.class.getName();
 
+	private LocationCompassHandler locationCompassHandler;
 	private Destination currentDestination = null;
-	private Location currentLocation = null;
+	private Location currentLocation = LocationCompassHandler.UNKNOWN_LOCATION;
+	private float currentAzimuth = LocationCompassHandler.UNKNOWN_AZIMUTH;
 
 	private NavigatorView navigatorView;
 	private TextView lblDestination;
@@ -37,30 +36,32 @@ public class NavigatorActivity extends ActionBarActivity implements
 
 		addMockContent();
 
+		locationCompassHandler = new LocationCompassHandler(this);
+		locationCompassHandler.setListener(this);
+
 		navigatorView = (NavigatorView) findViewById(R.id.navigator_navigatorView);
 		lblDestination = (TextView) findViewById(R.id.navigator_lblDestination);
+	}
 
-		final LocationManager locationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-				0, this);
-		final Location lastKnownLocation = locationManager
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		onLocationChanged(lastKnownLocation);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationCompassHandler.start();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationCompassHandler.pause();
 	}
 
 	// TODO remove
 	private void addMockContent() {
-		DestinationList.getInstance().add(
-				new Destination("Berlin, Fernsehturm", 52.52160034123976,
-						13.406238555908203));
-		DestinationList.getInstance().add(
-				new Destination("Leipzig, Völkerschlachtdenkmal", -40.123,
-						-10.456));
-		for (int i = 0; i < 50; i++) {
-			DestinationList.getInstance().add(
-					new Destination("" + System.currentTimeMillis(), -40.123,
-							Math.random() * 20));
+		final Destination fernsehturm = new Destination("Berlin, Fernsehturm",
+				52.52160034123976, 13.406238555908203);
+		final DestinationList list = DestinationList.getInstance();
+		if (!list.contains(fernsehturm)) {
+			list.add(fernsehturm);
 		}
 	}
 
@@ -117,6 +118,20 @@ public class NavigatorActivity extends ActionBarActivity implements
 		}
 	}
 
+	@Override
+	public void onLocationChanged(final Location newLocation) {
+		Log.i(TAG, "Loc: " + newLocation);
+		this.currentLocation = newLocation;
+		invalidateNavigation();
+	}
+
+	@Override
+	public void onAzimuthChanged(final float azimuth) {
+		Log.i(TAG, "Azi: " + azimuth);
+		this.currentAzimuth = azimuth;
+		invalidateNavigation();
+	}
+
 	private void setCurrentDestination(final Destination dest) {
 		currentDestination = dest;
 		Log.i(TAG, "Current: " + currentDestination);
@@ -124,29 +139,34 @@ public class NavigatorActivity extends ActionBarActivity implements
 		invalidateNavigation();
 	}
 
-	@Override
-	public void onLocationChanged(final Location location) {
-		if (Util.isBetterLocation(location, currentLocation)) {
-			setCurrentLocation(location);
-		}
-	}
-
-	private void setCurrentLocation(final Location currentLocation) {
-		this.currentLocation = currentLocation;
-		invalidateNavigation();
-	}
-
 	private void invalidateNavigation() {
-		if (currentLocation != null && currentDestination != null) {
+		//@formatter:off
+		final boolean distanceAvailable =
+				currentLocation != LocationCompassHandler.UNKNOWN_LOCATION
+				&& currentDestination != null;
+		//@formatter:on
+		if (distanceAvailable) {
 			final int distance = Math.round(currentLocation
 					.distanceTo(currentDestination.getLocation())); // in meter
-			final float bearing = currentLocation.bearingTo(currentDestination
-					.getLocation());
 			navigatorView.setDistance(distance);
-			// TODO use compass
-			navigatorView.setBearing(bearing + 180);
 		} else {
 			navigatorView.setDistance(NavigatorView.UNKNOWN_DISTANCE);
+		}
+
+		//@formatter:off
+		final boolean bearingAvailable =
+				currentLocation != LocationCompassHandler.UNKNOWN_LOCATION
+				&& Float.compare(currentAzimuth, LocationCompassHandler.UNKNOWN_AZIMUTH) != 0
+				&& currentDestination != null;
+		//@formatter:on
+		if (bearingAvailable) {
+			final float startBearing = currentDestination.getLocation()
+					.bearingTo(currentLocation);
+			float bearing = Util.positiveModulo(startBearing - currentAzimuth,
+					360);
+			// Log.i(TAG, bearing + "°");
+			navigatorView.setBearing(bearing);
+		} else {
 			navigatorView.setBearing(NavigatorView.UNKNOWN_BEARING);
 		}
 
@@ -171,17 +191,5 @@ public class NavigatorActivity extends ActionBarActivity implements
 		spannable.setSpan(new StyleSpan(Typeface.BOLD), spanStart, spanEnd, 0);
 		spannable.setSpan(new RelativeSizeSpan(1.4f), spanStart, spanEnd, 0);
 		return spannable;
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 }
