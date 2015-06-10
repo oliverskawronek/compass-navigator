@@ -30,64 +30,100 @@ public final class Util {
 				.format("%s, %s", formatGeoCoord(lat), formatGeoCoord(lon));
 	}
 
-	private static final long ONE_MINUTE = 60 * 1000; // in ms
-
-	// Source:
-	// http://developer.android.com/guide/topics/location/strategies.html
-	public static boolean isBetterLocation(final Location location,
-			final Location currentBestLocation) {
-		if (currentBestLocation == null) {
-			// A new location is always better than no location
-			return true;
-		}
-
-		// Check whether the new location fix is newer or older
-		final long timeDelta = location.getTime()
-				- currentBestLocation.getTime();
-		final boolean isSignificantlyNewer = timeDelta > ONE_MINUTE;
-		final boolean isSignificantlyOlder = timeDelta < -ONE_MINUTE;
-		final boolean isNewer = timeDelta > 0;
-
-		// If it's been more than two minutes since the current location, use
-		// the new location
-		// because the user has likely moved
-		if (isSignificantlyNewer) {
-			return true;
-			// If the new location is more than two minutes older, it must be
-			// worse
-		} else if (isSignificantlyOlder) {
-			return false;
-		}
-
-		// Check whether the new location fix is more or less accurate
-		final int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation
-				.getAccuracy());
-		final boolean isLessAccurate = accuracyDelta > 0;
-		final boolean isMoreAccurate = accuracyDelta < 0;
-		final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-		// Check if the old and new location are from the same provider
-		final boolean isFromSameProvider = isSameProvider(
-				location.getProvider(), currentBestLocation.getProvider());
-
-		// Determine location quality using a combination of timeliness and
-		// accuracy
-		if (isMoreAccurate) {
-			return true;
-		} else if (isNewer && !isLessAccurate) {
-			return true;
-		} else if (isNewer && !isSignificantlyLessAccurate
-				&& isFromSameProvider) {
-			return true;
-		}
-		return false;
+	public static int positiveModulo(final int a, final int b) {
+		return (a % b + b) % b;
 	}
 
-	private static boolean isSameProvider(final String provider1,
-			final String provider2) {
-		if (provider1 == null) {
-			return provider2 == null;
+	public static float positiveModulo(final float a, final float b) {
+		return (a % b + b) % b;
+	}
+
+	public static double positiveModulo(final double a, final double b) {
+		return (a % b + b) % b;
+	}
+
+
+	public static float average(final float[] x) {
+		if (x == null) {
+			throw new NullPointerException();
+		} else if (x.length == 0) {
+			throw new IllegalArgumentException("x is empty");
 		}
-		return provider1.equals(provider2);
+		
+		float avg = 0;
+
+		for (int i = 0; i < x.length; i++) {
+			avg += x[i];
+		}
+		avg /= x.length;
+		return avg;
+	}
+	
+	// Source: http://ndevilla.free.fr/median/median/src/torben.c
+	public static float median(final float[] x) {
+		if (x == null) {
+			throw new NullPointerException();
+		} else if (x.length == 0) {
+			throw new IllegalArgumentException("x is empty");
+		}
+
+		float min = Float.MAX_VALUE;
+		float max = Float.MIN_VALUE;
+		for (int i = 0; i < x.length; i++) {
+			if (x[i] < min) {
+				min = x[i];
+			}
+			if (x[i] > max) {
+				max = x[i];
+			}
+		}
+
+		int lessCount;
+		int equalCount;
+		int greaterCount;
+		float maxLtGuess;
+		float minGtGuess;
+
+		while (true) {
+			final float guess = (min + max) / 2f;
+
+			lessCount = 0;
+			equalCount = 0;
+			greaterCount = 0;
+
+			maxLtGuess = min;
+			minGtGuess = max;
+			for (int i = 0; i < x.length; i++) {
+				if (x[i] < guess) {
+					lessCount++;
+					if (x[i] > maxLtGuess) {
+						maxLtGuess = x[i];
+					}
+				} else if (x[i] > guess) {
+					greaterCount++;
+					if (x[i] < minGtGuess) {
+						minGtGuess = x[i];
+					}
+				} else {
+					equalCount++;
+				}
+			}
+
+			if (lessCount <= (x.length + 1) / 2
+					&& greaterCount <= (x.length + 1) / 2) {
+				// End
+				if (lessCount >= (x.length + 1) / 2) {
+					return maxLtGuess;
+				} else if (lessCount + equalCount >= (x.length + 1) / 2) {
+					return guess;
+				} else {
+					return minGtGuess;
+				}
+			} else if (lessCount > greaterCount) {
+				max = maxLtGuess;
+			} else {
+				min = minGtGuess;
+			}
+		}
 	}
 }
