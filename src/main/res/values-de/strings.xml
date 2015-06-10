@@ -11,7 +11,7 @@
     <string name="title_activity_select_destination">Ziel wählen</string>
     <string name="title_activity_delete_destinations">Ziele löschen</string>
     <!-- NavigationView -->
-    <string name="unknown_distance">Ziel n. a.</string>
+    <string name="unknown_distance">Entf. n. a.</string>
     <string name="unknown_destination">Nicht gewählt</string>
     <!-- Actions -->
     <string name="action_select_all">Alle auswählen</string>
