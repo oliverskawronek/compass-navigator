@@ -44,6 +44,14 @@ public final class DestinationList {
 		Log.v(TAG, "Add " + dest.toString());
 	}
 
+	public boolean contains(final Destination dest) {
+		if (dest == null) {
+			throw new NullPointerException();
+		}
+
+		return destinations.contains(dest);
+	}
+
 	public void replace(final Destination source, final Destination by) {
 		if (source == null || by == null) {
 			throw new NullPointerException();
@@ -91,14 +99,14 @@ public final class DestinationList {
 				"UTF-8"));
 		try {
 			writeList(writer, destinations);
-			Log.v(TAG, "Saved");
+			Log.v(TAG, "Saved " + destinations.size() + " destination(s)");
 		} finally {
 			writer.close();
 		}
 	}
 
-	private void writeList(final JsonWriter writer,
-			final List<Destination> list) throws IOException {
+	private void writeList(final JsonWriter writer, final List<Destination> list)
+			throws IOException {
 		writer.beginArray();
 		for (final Destination tl : list) {
 			writeDestination(writer, tl);
@@ -106,8 +114,8 @@ public final class DestinationList {
 		writer.endArray();
 	}
 
-	private void writeDestination(final JsonWriter writer,
-			final Destination tl) throws IOException {
+	private void writeDestination(final JsonWriter writer, final Destination tl)
+			throws IOException {
 		writer.beginObject();
 		writer.name("name").value(tl.getName());
 		final double latitude = tl.getLocation().getLatitude();
@@ -127,7 +135,7 @@ public final class DestinationList {
 		try {
 			destinations.clear();
 			readList(reader);
-			Log.v(TAG, "Loaded");
+			Log.v(TAG, "Loaded " + destinations.size() + " destination(s)");
 		} finally {
 			reader.close();
 		}
